@@ -15,8 +15,8 @@ fn game() {
 
     loop {
 
-        let x = thread_rng().gen_range(2..=10);
-        let y = thread_rng().gen_range(2..=10);
+        let x = thread_rng().gen_range(2..10);
+        let y = thread_rng().gen_range(2..10);
         let answer = x * y;
         term.write( format!("Score: Correct: {} Incorrectly: {}\n", _correct, _wrong).as_bytes()).expect("noexpect");
 
