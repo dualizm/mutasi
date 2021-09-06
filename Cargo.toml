@@ -1,0 +1,12 @@
+[package]
+name = "mutasi"
+version = "0.1.0"
+edition = "2018"
+authors = [ "Notidman" ]
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+
+rand = "0.8.4"
+console = "0.14.1"
