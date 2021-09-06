@@ -6,8 +6,8 @@
 This program is designed to help learn the multiplication table
 
 # Help
-Program commands: 
-"--help"    or "-h" -> Show help commands.",
-"--version" or "-v" -> Show the version of the program.",
-"--table"   or "-t" -> Shows the multiplication table.",
-"--start"   or "-s" -> Starts the game with the multiplication table."),
+- **Program commands:**<br/>
+  - ***"--help"***    or ***"-h"*** -> Show help commands.",<br/>
+  - ***"--version"*** or ***"-v"*** -> Show the version of the program.",<br/>
+  - ***"--table"***   or ***"-t"*** -> Shows the multiplication table.",<br/>
+  - ***"--start"***   or ***"-s"*** -> Starts the game with the multiplication table.".<br/>
