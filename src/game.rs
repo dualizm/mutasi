@@ -15,13 +15,29 @@ impl Timer {
         }
     }
 
-    fn time_go(&mut self) {
+    fn set_time(&mut self, user_m: i32, user_s: i32) {
+        self.minutes = user_m;
+        self.seconds = user_s;
+    }
+
+    fn time_up(&mut self) {
         if self.seconds >= 60 {
             self.seconds = 0;
             self.minutes += 1;
         }
+        else {
+            self.seconds += 1;
+        }
+    }
 
-        self.seconds += 1;
+    fn time_dw(&mut self) {
+        if self.seconds == 0 {
+            self.minutes -= 1;
+            self.seconds = 60;
+        }
+        else {
+            self.seconds -= 1;
+        }
     }
 
     fn get_data(&self) -> String {
@@ -37,7 +53,7 @@ fn timer() {
         thread::sleep(Duration::from_millis(1000));
         term.clear_line()
         .expect("Not clear");
-        timer.time_go();
+        timer.time_up();
     }
 }
 
