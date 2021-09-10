@@ -44,6 +44,9 @@ fn main()
             style("--starto -so").red(),   " -> Game with multiplication table in octal.",
             style("--startx -sx").red(),   " -> Game with multiplication table in hexadecimal."),
 
+            // BETA Timer
+            "--timer" => timer(),
+
             _ => print!("Mutasi: {} {}", style("error:").red().bold(), "Not correct args!")
         };
     }

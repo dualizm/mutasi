@@ -6,6 +6,41 @@ use std::thread;
 use std::time::Duration;
 use std::cmp::Ordering;
 
+struct Timer { minutes: i32, seconds: i32}
+impl Timer {
+    fn new() -> Timer {
+        Timer {
+            minutes: 0,
+            seconds: 0,
+        }
+    }
+
+    fn time_go(&mut self) {
+        if self.seconds >= 60 {
+            self.seconds = 0;
+            self.minutes += 1;
+        }
+
+        self.seconds += 1;
+    }
+
+    fn get_data(&self) -> String {
+        format!("Time: {:02} : {:02}", self.minutes, self.seconds)
+    }
+}
+
+fn timer() {
+    let mut term = Term::stdout();
+    let mut timer = Timer::new();
+    loop {
+        term.write(timer.get_data().as_bytes()).expect("Some error");
+        thread::sleep(Duration::from_millis(1000));
+        term.clear_line()
+        .expect("Not clear");
+        timer.time_go();
+    }
+}
+
 fn game(gamemode: &str) {
 
     let mut term = Term::stdout();
@@ -63,8 +98,6 @@ fn game(gamemode: &str) {
                 _wrong += 1;
             },
         }
-
-        thread::sleep(Duration::from_millis(1000));
 
         term.clear_last_lines(2)
         .expect("Not clear");
