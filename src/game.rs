@@ -6,7 +6,7 @@ use std::thread;
 use std::time::Duration;
 use std::cmp::Ordering;
 
-fn game() {
+fn game(gamemode: &str) {
 
     let mut term = Term::stdout();
     let mut _correct = 0;
@@ -19,8 +19,15 @@ fn game() {
         let y = thread_rng().gen_range(2..10);
         let answer = x * y;
         term.write( format!("Score: Correct: {} Incorrectly: {}\n", _correct, _wrong).as_bytes()).expect("noexpect");
-
-        let expression = format!("Expression: {} * {} = ", x, y);
+        
+        let expression: String;
+        match gamemode {
+            "d" => expression = format!("Expression: {} * {} = ", x, y),
+            "b" => expression = format!("Expression: {:#b} * {:#b} = ", x, y),
+            "o" => expression = format!("Expression: {:#o} * {:#o} = ", x, y),
+            "x" => expression = format!("Expression: {:#x} * {:#x} = ", x, y),
+            _ => panic!("{}", style("Error arg!").red()),
+        }
 
         term.write(expression.as_bytes()).expect("impossible to withdraw expression");
 
