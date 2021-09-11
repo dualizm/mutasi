@@ -6,6 +6,7 @@ use std::thread;
 use std::time::Duration;
 use std::cmp::Ordering;
 
+
 struct Timer { minutes: i32, seconds: i32}
 impl Timer {
     fn new() -> Timer {

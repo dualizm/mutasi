@@ -1,6 +1,6 @@
 /**********************************************************
 *  PROJECT_NAME: Mutasi;
-*  VERSION: 0.2.0;
+*  VERSION: 0.2.2;
 *  AUTHOR: Notidman;
 ***********************************************************/
 use std::env;
@@ -10,43 +10,58 @@ include!("table.rs");
 
 fn main()
 {
-    for arg in env::args().skip(1) {
-        let arg: &str = arg.as_str();
-        match arg 
+
+    let argv: Vec<String> = env::args().skip(1).collect();
+    let mut iter = argv.into_iter().peekable();
+    while let (Some(current), next) = (iter.next(), iter.peek()) {
+        match current.as_str()
         {
-            "--version" | "-v" => println!("{}{}", "Mutasi version", style(" 1.5").green().bold()),
+            "--version" | "-v" => println!("{} {}", "Mutasi version", style("0.2.2").green().bold()),
 
-            "--table" | "-t" => show_table("d"),
+            "--table" | "-t" => {
 
-            "--tableb" | "-tb" => show_table("b"),
+                if next == Some(&"b".to_string()) {
+                    show_table("b")
+                }
+                else if next == Some(&"o".to_string()) {
+                    show_table("o") 
+                }
+                else if next == Some(&"x".to_string()) {
+                    show_table("x")
+                }
+                else {
+                    show_table("d")
+                }
+            },
 
-            "--tableo" | "-to" => show_table("o"),
+            "--start" | "-s" => {
+                if next == Some(&"b".to_string()) {
+                    game("b")
+                }
+                else if next == Some(&"o".to_string()) {
+                    game("o") 
+                }
+                else if next == Some(&"x".to_string()) {
+                    game("x")
+                }
+                else {
+                    game("d")
+                }
+            },
 
-            "--tablex" | "-tx" => show_table("x"),
-
-            "--start" | "-s" => game("d"),
-
-            "--startb" | "-sb" => game("b"),
-
-            "--starto" | "-so" => game("o"),
-
-            "--startx" | "-sx" => game("x"),
-
-            "--help" | "-h"  =>  println!("\n{}{}\n\n{}{}\n\n{}{}\n\n{}{}\n\n{}{}\n\n{}{}\n\n{}{}\n\n{}{}\n\n{}{}\n\n{}{}\n",
+            "--help" | "-h"  =>  println!("\n{}{}\n\n{}{}\n\n{}{}\n\n{}{}\n\n{}{}\n\n{}{}\n",
             style("--help -h").red(),    " -> Show help commands.",
             style("--version -v").red(), " -> Show the version of the program.",
             style("--table -t").red(),   " -> Shows the multiplication table in decimal.",
-            style("--tableb -tb").red(),   " -> Shows the multiplication table in binary.",
-            style("--tableo -to").red(),   " -> Shows the multiplication table in octal.",
-            style("--tablex -tx").red(),   " -> Shows the multiplication table in decimal.",
-            style("--start -s").red(),   " -> Game with the multiplication table in hexadecimal.",
-            style("--startb -sb").red(), " -> Game with multiplication table in binary.",
-            style("--starto -so").red(),   " -> Game with multiplication table in octal.",
-            style("--startx -sx").red(),   " -> Game with multiplication table in hexadecimal."),
+            style("--table + _ -t + _").red(),   " -> Or add a key for other number systems\n b(binary); o(octal); x(hexadecimal).",
+            style("--start -s").red(),   " -> Game with the multiplication table in decimal.",
+            style("--start + _ -s + _").red(), " -> Or add a key for other number systems\n b(binary); o(octal); x(hexadecimal)."),
 
             // BETA Timer
             "--timer" => timer(),
 
+
+            "o" | "b" | "x" => print!("{}", ""),
             _ => print!("Mutasi: {} {}", style("error:").red().bold(), "Not correct args!")
         };
     }
