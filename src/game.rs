@@ -1,7 +1,7 @@
 
 use rand::{thread_rng, Rng};
 use std::io::Write;
-use console::Term;
+use console::*;
 use std::thread;
 use std::time::Duration;
 use std::cmp::Ordering;
@@ -46,7 +46,7 @@ impl Timer {
     }
 }
 
-fn timer() {
+pub fn timer() {
     let mut term = Term::stdout();
     let mut timer = Timer::new();
     loop {
@@ -58,7 +58,7 @@ fn timer() {
     }
 }
 
-fn game(gamemode: &str) {
+pub fn game(gamemode: &str) {
 
     let mut term = Term::stdout();
     let mut _correct = 0;

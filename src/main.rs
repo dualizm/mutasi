@@ -3,10 +3,13 @@
 *  VERSION: 0.2.2;
 *  AUTHOR: Notidman;
 ***********************************************************/
+mod game;
+mod table;
+
 use std::env;
 use console::style;
-include!("game.rs");
-include!("table.rs");
+use game::*;
+use table::show_table;
 
 fn main()
 {

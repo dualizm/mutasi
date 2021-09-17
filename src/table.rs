@@ -1,3 +1,4 @@
+use console::*;
 
 fn line_char(system: &str) {
     println!("+{}+", "-".repeat(        
@@ -19,7 +20,7 @@ fn line_expression(system: &str, i: &i32, j: &i32, rl: i32) {
     }
 }
 
-fn show_table(system: &str) {
+pub fn show_table(system: &str) {
     let mut i = 2;
     line_char(system);
     while i < 10
