@@ -1,6 +1,6 @@
 /**********************************************************
 *  PROJECT_NAME: Mutasi;
-*  VERSION: 0.2.2;
+*  VERSION: 0.2.5;
 *  AUTHOR: Notidman;
 ***********************************************************/
 mod game;
@@ -29,9 +29,6 @@ fn main()
                 else if next == Some(&"o".to_string()) {
                     show_table("o") 
                 }
-                else if next == Some(&"x".to_string()) {
-                    show_table("x")
-                }
                 else {
                     show_table("d")
                 }
@@ -44,9 +41,6 @@ fn main()
                 else if next == Some(&"o".to_string()) {
                     game("o") 
                 }
-                else if next == Some(&"x".to_string()) {
-                    game("x")
-                }
                 else {
                     game("d")
                 }
@@ -56,15 +50,15 @@ fn main()
             style("--help -h").red(),    " -> Show help commands.",
             style("--version -v").red(), " -> Show the version of the program.",
             style("--table -t").red(),   " -> Shows the multiplication table in decimal.",
-            style("--table + _ -t + _").red(),   " -> Or add a key for other number systems\n b(binary); o(octal); x(hexadecimal).",
+            style("--table _ -t _").red(),   " -> Add a key for other number systems\n b(binary); o(octal).",
             style("--start -s").red(),   " -> Game with the multiplication table in decimal.",
-            style("--start + _ -s + _").red(), " -> Or add a key for other number systems\n b(binary); o(octal); x(hexadecimal)."),
+            style("--start _ -s _").red(), " -> Add a key for other number systems\n b(binary); o(octal)."),
 
             // BETA Timer
             "--timer" => timer(),
 
 
-            "o" | "b" | "x" => print!("{}", ""),
+            "o" | "b" => print!("{}", ""),
             _ => print!("Mutasi: {} {}", style("error:").red().bold(), "Not correct args!")
         };
     }

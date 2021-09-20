@@ -6,7 +6,6 @@ fn line_char(system: &str) {
         "d" => 57,
         "b" => 97,
         "o" => 81,
-        "x" => 73,
         _ => panic!("{}", style("Error arg!").red()),}));
 }
 
@@ -15,7 +14,6 @@ fn line_expression(system: &str, i: &i32, j: &i32, rl: i32) {
         "d" => print!("| {} * {} = {:2} |{}", j, i, j * i, if j % rl == 0 {'\n'} else {' '} ),
         "b" => print!("| {:#6b} * {:#6b} = {:2} |{}", j, i, j * i, if j % rl == 0 {'\n'} else {' '} ),
         "o" => print!("| {:#4o} * {:#4o} = {:2} |{}", j, i, j * i, if j % rl == 0 {'\n'} else {' '} ),
-        "x" => print!("| {:#3x} * {:#3x} = {:2} |{}", j, i, j * i, if j % rl == 0 {'\n'} else {' '} ),
         _ => panic!("{}", style("Error arg!").red()),
     }
 }

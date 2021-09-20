@@ -77,7 +77,6 @@ pub fn game(gamemode: &str) {
             "d" => expression = format!("Expression: {} * {} = ", x, y),
             "b" => expression = format!("Expression: {:#b} * {:#b} = ", x, y),
             "o" => expression = format!("Expression: {:#o} * {:#o} = ", x, y),
-            "x" => expression = format!("Expression: {:#x} * {:#x} = ", x, y),
             _ => panic!("{}", style("Error arg!").red()),
         }
 
