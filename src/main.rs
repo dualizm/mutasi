@@ -57,6 +57,8 @@ fn main()
             // BETA Timer
             "--timer" => timer(),
 
+            "--byterush" => game_b_rush(),
+
 
             "o" | "b" => print!("{}", ""),
             _ => print!("Mutasi: {} {}", style("error:").red().bold(), "Not correct args!")
