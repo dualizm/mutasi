@@ -19,7 +19,7 @@ fn main()
     while let (Some(current), next) = (iter.next(), iter.peek()) {
         match current.as_str()
         {
-            "--version" | "-v" => println!("{} {}", "Mutasi version", style("0.2.2").green().bold()),
+            "--version" | "-v" => println!("{} {}", "Mutasi version", style("0.2.5").green().bold()),
 
             "--table" | "-t" => {
 
