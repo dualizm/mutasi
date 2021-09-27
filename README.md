@@ -11,3 +11,7 @@ This program is designed to help learn the multiplication table
   - ***"--version"*** or ***"-v"*** -> Show the version of the program.",<br/>
   - ***"--table"***   or ***"-t"*** -> Shows the multiplication table.",<br/>
   - ***"--start"***   or ***"-s"*** -> Starts the game with the multiplication table.".<br/>
+  - ***"--table _"***   or ***"-t _"*** -> Shows the multiplication table.",<br/>
+  - ***"--start _"***   or ***"-s _"*** -> Starts the game with the multiplication table.".<br/>
+  - ***"--timer"*** -> shows a timer of the form mm:ss.",<br/>
+  - ***"--byterush"*** -> launches a complex binary multiplication game.".<br/>
