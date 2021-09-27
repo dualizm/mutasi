@@ -58,120 +58,96 @@ pub fn timer() {
     }
 }
 
-pub fn game(gamemode: &str) {
-
-    let mut term = Term::stdout();
-    let mut _correct = 0;
-    let mut _wrong = 0;
-    println!("{}", "Enter your answer(-1 to exit): ");
-
-    loop {
-
-        let x = thread_rng().gen_range(2..10);
-        let y = thread_rng().gen_range(2..10);
-        let answer = x * y;
-        term.write( format!("Score: Correct: {} Incorrectly: {}\n", _correct, _wrong).as_bytes()).expect("noexpect");
-        
-        let expression: String;
-        match gamemode {
-            "d" => expression = format!("Expression: {} * {} = ", x, y),
-            "b" => expression = format!("Expression: {:#b} * {:#b} = ", x, y),
-            "o" => expression = format!("Expression: {:#o} * {:#o} = ", x, y),
-            _ => panic!("{}", style("Error arg!").red()),
+pub struct Game{gamemode: String, correct: i32, wrong: i32}
+impl Game {
+    pub fn new(gamemode: &str) -> Game {
+        Game {
+            gamemode: gamemode.to_string(),
+            correct: 0,
+            wrong : 0,
         }
-
-        term.write(expression.as_bytes()).expect("impossible to withdraw expression");
-
-        let mut guess: String = String::new();
-        std::io::stdin().read_line(&mut guess).expect("");
-
-        let guess: i32 = match guess.trim().parse() {
-            Ok(num) => num,
-            Err(_) => {
-                term.write( format!("{}", style("Incorrectly!").red().bold()).as_bytes() )
-                .expect("wut");
-                _wrong += 1;
-                term.clear_last_lines(1)
-                .expect("Not clear");
-                continue;
-            },
-        };
-
-        if guess == -1 {
-            println!("See you soon!");
-            std::process::exit(0);
-        }
-
-        match guess.cmp(&answer) {
-            Ordering::Equal => {
-                term.write( format!("{}", style("Correct!    ").green().bold()).as_bytes() )
-                .expect("wut");
-                _correct += 1;
-            },
-            _ => {
-                term.write( format!("{}", style("Incorrectly!").red().bold()).as_bytes() )
-                .expect("wut");
-                _wrong += 1;
-            },
-        }
-
-        term.clear_last_lines(2)
-        .expect("Not clear");
     }
-}
 
-pub fn game_b_rush() {
+    pub fn game(&mut self) {
+
+        let mut term = Term::stdout();
+        println!("{}", "Enter your answer(-1 to exit): ");
+
+        loop {
+            let (x, y) = Game::gen_num(&self.gamemode);
+            
+            let expression = Game::gen_expression(&self.gamemode, x, y);
+
+            let answer = x * y;
+            term.write( format!("Score: Correct: {} Incorrectly: {}\n", self.correct, self.wrong).as_bytes()).expect("noexpect");
     
-    let mut term = Term::stdout();
-    let mut _correct = 0;
-    let mut _wrong = 0;
-    println!("{}", "Enter your answer(-1 to exit): ");
-
-    loop {
-
-        let x = thread_rng().gen_range(1..=100);
-        let y = thread_rng().gen_range(1..=100);
-        let answer = x * y;
-        term.write( format!("Score: Correct: {} Incorrectly: {}\n", _correct, _wrong).as_bytes()).expect("noexpect");
-        
-        let expression: String = format!("Expression: {:#b} * {:#b} = ", x, y);
-
-        term.write(expression.as_bytes()).expect("impossible to withdraw expression");
-
-        let mut guess: String = String::new();
-        std::io::stdin().read_line(&mut guess).expect("");
-
-        let guess: i32 = match guess.trim().parse() {
-            Ok(num) => num,
-            Err(_) => {
-                term.write( format!("{}", style("Incorrectly!").red().bold()).as_bytes() )
-                .expect("wut");
-                _wrong += 1;
-                term.clear_last_lines(1)
-                .expect("Not clear");
-                continue;
-            },
-        };
-
-        if guess == -1 {
-            println!("See you soon!");
-            std::process::exit(0);
+            term.write(expression.as_bytes()).expect("impossible to withdraw expression");
+    
+            let mut guess: String = String::new();
+            std::io::stdin().read_line(&mut guess).expect("");
+    
+            let guess: i32 = match guess.trim().parse() {
+                Ok(num) => num,
+                Err(_) => {
+                    term.write( format!("{}", style("Incorrectly!").red().bold()).as_bytes() )
+                    .expect("wut");
+                    self.wrong += 1;
+                    term.clear_last_lines(1)
+                    .expect("Not clear");
+                    continue;
+                },
+            };
+    
+            if guess == -1 {
+                println!("See you soon!");
+                std::process::exit(0);
+            }
+    
+            match guess.cmp(&answer) {
+                Ordering::Equal => {
+                    term.write( format!("{}", style("Correct!    ").green().bold()).as_bytes() )
+                    .expect("wut");
+                    self.correct += 1;
+                },
+                _ => {
+                    term.write( format!("{}", style("Incorrectly!").red().bold()).as_bytes() )
+                    .expect("wut");
+                    self.wrong += 1;
+                },
+            }
+    
+            term.clear_last_lines(2)
+            .expect("Not clear");
         }
 
-        match guess.cmp(&answer) {
-            Ordering::Equal => {
-                term.write( format!("{}", style("Correct!    ").green().bold()).as_bytes() )
-                .expect("wut");
-                _correct += 1;
-            },
-            _ => {
-                term.write( format!("{}", style("Incorrectly!").red().bold()).as_bytes() )
-                .expect("wut");
-                _wrong += 1;
-            },
-        }
-
-        term.clear_last_lines(2)
-        .expect("Not clear");
     }
+
+    fn gen_num(gamemode: &String) -> (i32, i32) {
+
+        let (x, y) = (
+        if gamemode == "r" {
+            thread_rng().gen_range(1..=100)
+        }
+        else {
+            thread_rng().gen_range(1..10)
+        },
+        if gamemode == "r" {
+            thread_rng().gen_range(1..=100)
+        }
+        else {
+            thread_rng().gen_range(1..10)
+        },);
+        (x,y)
+    } 
+
+    fn gen_expression(gamemode: &String, x: i32, y: i32) -> String {
+        match gamemode.as_str() {
+            "d" => format!("Expression: {} * {} = ", x, y),
+            "b" => format!("Expression: {:#b} * {:#b} = ", x, y),
+            "o" => format!("Expression: {:#o} * {:#o} = ", x, y),
+            "r" => format!("Expression: {:#b} * {:#b} = ", x, y),
+            _ => panic!("{}", style("Error arg!").red())
+        }
+    }
+
 }

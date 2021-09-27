@@ -9,7 +9,7 @@ mod table;
 use std::env;
 use console::style;
 use game::*;
-use table::show_table;
+use table::Table;
 
 fn main()
 {
@@ -24,40 +24,48 @@ fn main()
             "--table" | "-t" => {
 
                 if next == Some(&"b".to_string()) {
-                    show_table("b")
+                    Table::show_table("b")
                 }
                 else if next == Some(&"o".to_string()) {
-                    show_table("o") 
+                    Table::show_table("o") 
                 }
                 else {
-                    show_table("d")
+                    Table::show_table("d")
                 }
             },
 
             "--start" | "-s" => {
                 if next == Some(&"b".to_string()) {
-                    game("b")
+                    let mut gm = Game::new("b");
+                    gm.game();
                 }
                 else if next == Some(&"o".to_string()) {
-                    game("o") 
+                    let mut gm = Game::new("o");
+                    gm.game(); 
                 }
                 else {
-                    game("d")
+                    let mut gm = Game::new("d");
+                    gm.game();
                 }
             },
 
-            "--help" | "-h"  =>  println!("\n{}{}\n\n{}{}\n\n{}{}\n\n{}{}\n\n{}{}\n\n{}{}\n",
-            style("--help -h").red(),    " -> Show help commands.",
-            style("--version -v").red(), " -> Show the version of the program.",
-            style("--table -t").red(),   " -> Shows the multiplication table in decimal.",
-            style("--table _ -t _").red(),   " -> Add a key for other number systems\n b(binary); o(octal).",
-            style("--start -s").red(),   " -> Game with the multiplication table in decimal.",
-            style("--start _ -s _").red(), " -> Add a key for other number systems\n b(binary); o(octal)."),
+            "--help" | "-h"  =>  println!("\n{}{}\n\n{}{}\n\n{}{}\n\n{}{}\n\n{}{}\n\n{}{}\n\n{}{}\n\n{}{}\n",
+            style("--help -h").red(),    " -> show help commands.",
+            style("--version -v").red(), " -> show the version of the program.",
+            style("--table -t").red(),   " -> shows the multiplication table in decimal.",
+            style("--table _ -t _").red(),   " -> add a key for other number systems\n b(binary); o(octal).",
+            style("--start -s").red(),   " -> game with the multiplication table in decimal.",
+            style("--start _ -s _").red(), " -> add a key for other number systems\n b(binary); o(octal).",
+            style("--timer").red(),   " -> shows a timer of the form mm:ss.",
+            style("--byterush").red(), " -> launches a complex binary multiplication game."),
 
             // BETA Timer
             "--timer" => timer(),
 
-            "--byterush" => game_b_rush(),
+            "--byterush" => {
+                let mut gm = Game::new("r");
+                gm.game();
+            },
 
 
             "o" | "b" => print!("{}", ""),
