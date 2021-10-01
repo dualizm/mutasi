@@ -13,9 +13,7 @@ use table::Table;
 
 fn main()
 {
-
-    let argv: Vec<String> = env::args().skip(1).collect();
-    let mut iter = argv.into_iter().peekable();
+    let mut iter = env::args().skip(1).into_iter().peekable();
     while let (Some(current), next) = (iter.next(), iter.peek()) {
         match current.as_str()
         {
