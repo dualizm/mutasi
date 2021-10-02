@@ -21,10 +21,10 @@ fn main()
 
             "--table" | "-t" => {
 
-                if next == Some(&"b".to_string()) {
+                if next.unwrap() == "b" {
                     Table::show_table("b")
                 }
-                else if next == Some(&"o".to_string()) {
+                else if next.unwrap() == "o" {
                     Table::show_table("o") 
                 }
                 else {
@@ -33,11 +33,11 @@ fn main()
             },
 
             "--start" | "-s" => {
-                if next == Some(&"b".to_string()) {
+                if next.unwrap()== "b" {
                     let mut gm = Game::new("b");
                     gm.game();
                 }
-                else if next == Some(&"o".to_string()) {
+                else if next.unwrap() == "o" {
                     let mut gm = Game::new("o");
                     gm.game(); 
                 }
