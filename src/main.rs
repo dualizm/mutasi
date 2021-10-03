@@ -8,7 +8,7 @@ mod table;
 
 use std::env;
 use console::style;
-use game::*;
+use game::{Game, timer};
 use table::Table;
 
 fn main()

@@ -124,20 +124,12 @@ impl Game {
 
     fn gen_num(gamemode: &String) -> (i32, i32) {
 
-        let (x, y) = (
         if gamemode == "r" {
-            thread_rng().gen_range(1..=100)
+            (thread_rng().gen_range(1..=100),thread_rng().gen_range(1..=100))
         }
         else {
-            thread_rng().gen_range(1..10)
-        },
-        if gamemode == "r" {
-            thread_rng().gen_range(1..=100)
+            (thread_rng().gen_range(1..10),thread_rng().gen_range(1..10))
         }
-        else {
-            thread_rng().gen_range(1..10)
-        },);
-        (x,y)
     } 
 
     fn gen_expression(gamemode: &String, x: i32, y: i32) -> String {
